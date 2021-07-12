@@ -60,7 +60,8 @@
       "error",
       { "devDependencies": ["**/*.spec.js"] }
     ],
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "array-callback-return": "off"
   },
   "settings": {
     "import/resolver": {
