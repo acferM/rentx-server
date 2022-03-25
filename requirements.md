@@ -1,7 +1,7 @@
 # Cadastro de carro
 
 **Requisitos funcionais**
-- [ ]  Deve ser possível cadastrar um novo carro.
+- [x]  Deve ser possível cadastrar um novo carro.
 - [ ]  Deve ser possível listar todas as categorias.
 
 
