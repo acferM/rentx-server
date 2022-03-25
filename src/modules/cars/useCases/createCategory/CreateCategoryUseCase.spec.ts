@@ -4,18 +4,16 @@ import { AppError } from '@shared/errors/AppError';
 import { CreateCategoryUseCase } from './CreateCategoryUseCase';
 
 let inMemoryCategoriesRepository: InMemoryCategoriesRepository;
-let createCategoryUseCase: CreateCategoryUseCase;
+let createCategory: CreateCategoryUseCase;
 
 describe('Create Category UseCase', () => {
   beforeEach(() => {
     inMemoryCategoriesRepository = new InMemoryCategoriesRepository();
-    createCategoryUseCase = new CreateCategoryUseCase(
-      inMemoryCategoriesRepository,
-    );
+    createCategory = new CreateCategoryUseCase(inMemoryCategoriesRepository);
   });
 
   it('Should be able to create a new category', async () => {
-    await createCategoryUseCase.execute({
+    await createCategory.execute({
       name: 'Category Test',
       description: 'Category Description Test',
     });
@@ -28,13 +26,13 @@ describe('Create Category UseCase', () => {
   });
 
   it('Should not be able to create a new category with existent name', async () => {
-    await createCategoryUseCase.execute({
+    await createCategory.execute({
       name: 'Category Test',
       description: 'Category Description Test',
     });
 
     await expect(
-      createCategoryUseCase.execute({
+      createCategory.execute({
         name: 'Category Test',
         description: 'Category Description Test',
       }),

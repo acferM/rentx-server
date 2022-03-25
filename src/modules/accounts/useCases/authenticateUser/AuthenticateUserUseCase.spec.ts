@@ -3,20 +3,18 @@ import { InMemoryUsersRepository } from '@modules/accounts/repositories/in-memor
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { AppError } from '@shared/errors/AppError';
 
-import { CreateUserUseCase } from '../CreateUser/CreateUserUseCase';
+import { CreateUserUseCase } from '../createUser/CreateUserUseCase';
 import { AuthenticateUserUseCase } from './AuthenticateUserUseCase';
 
 let inMemoryUsersRepository: IUsersRepository;
-let createUserUseCase: CreateUserUseCase;
-let authenticateUserUseCase: AuthenticateUserUseCase;
+let createUser: CreateUserUseCase;
+let authenticateUser: AuthenticateUserUseCase;
 
 describe('Authenticate User', () => {
   beforeEach(() => {
     inMemoryUsersRepository = new InMemoryUsersRepository();
-    createUserUseCase = new CreateUserUseCase(inMemoryUsersRepository);
-    authenticateUserUseCase = new AuthenticateUserUseCase(
-      inMemoryUsersRepository,
-    );
+    createUser = new CreateUserUseCase(inMemoryUsersRepository);
+    authenticateUser = new AuthenticateUserUseCase(inMemoryUsersRepository);
   });
 
   it('Should be able to authenticate', async () => {
@@ -27,9 +25,9 @@ describe('Authenticate User', () => {
       name: 'User Test',
     };
 
-    await createUserUseCase.execute(user);
+    await createUser.execute(user);
 
-    const result = await authenticateUserUseCase.execute({
+    const result = await authenticateUser.execute({
       email: user.email,
       password: user.password,
     });
@@ -40,7 +38,7 @@ describe('Authenticate User', () => {
 
   it('Should not be able to authenticate a non-existing user', async () => {
     await expect(
-      authenticateUserUseCase.execute({
+      authenticateUser.execute({
         email: 'false@email.com',
         password: '1234',
       }),
@@ -55,10 +53,10 @@ describe('Authenticate User', () => {
       name: 'User Test',
     };
 
-    await createUserUseCase.execute(user);
+    await createUser.execute(user);
 
     await expect(
-      authenticateUserUseCase.execute({
+      authenticateUser.execute({
         email: user.email,
         password: 'wrong-password',
       }),
@@ -73,10 +71,10 @@ describe('Authenticate User', () => {
       name: 'User Test',
     };
 
-    await createUserUseCase.execute(user);
+    await createUser.execute(user);
 
     await expect(
-      authenticateUserUseCase.execute({
+      authenticateUser.execute({
         email: 'wrong@email.com',
         password: user.password,
       }),
