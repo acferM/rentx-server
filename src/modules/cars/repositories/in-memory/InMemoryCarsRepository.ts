@@ -12,6 +12,12 @@ class InMemoryCarsRepository implements ICarsRepository {
     const car = new Car();
 
     Object.assign(car, { id: uuid(), ...data });
+
+    this.cars.push(car);
+  }
+
+  async findByLicensePlate(licensePlate: string): Promise<Car> {
+    return this.cars.find(car => car.license_plate === licensePlate);
   }
 }
 
