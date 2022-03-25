@@ -13,7 +13,7 @@ describe('Create Car', () => {
   });
 
   it('Should be able to create a new car', async () => {
-    await createCar.execute({
+    const car = await createCar.execute({
       name: 'Name Car',
       description: 'Description Car',
       daily_rate: 100,
@@ -22,6 +22,8 @@ describe('Create Car', () => {
       brand: 'brand',
       category_id: 'category',
     });
+
+    expect(car).toHaveProperty('id');
   });
 
   it('Should not be able to create a car with existent license plate', async () => {
