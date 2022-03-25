@@ -2,8 +2,12 @@ import crypto from 'crypto';
 import multer from 'multer';
 import { resolve } from 'path';
 
+interface IUploadResponse {
+  storage: multer.StorageEngine;
+}
+
 export default {
-  upload(folder: string) {
+  upload(folder: string): IUploadResponse {
     return {
       storage: multer.diskStorage({
         destination: resolve(__dirname, '..', '..', folder),
