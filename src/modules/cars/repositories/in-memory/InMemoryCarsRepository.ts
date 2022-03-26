@@ -1,5 +1,3 @@
-import { v4 as uuid } from 'uuid';
-
 import { ICreateCarDTO } from '@modules/cars/dtos/ICreateCarDTO';
 import { Car } from '@modules/cars/infra/typeorm/entities/Car';
 
